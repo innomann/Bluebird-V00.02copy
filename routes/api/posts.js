@@ -5,7 +5,12 @@ const passport = require("passport");
 const validatePostInput = require("../../validation/post");
 
 router.get("/", (req, res) => {
-  res.render("pages/home")
+  //res.render("pages/home")
+  Post.find({})
+    .then((post) => res.status(200).json(post))
+    .catch((err) => res.status(400).json(
+      console.log("Error fetching posts")
+    ));
 });
 
 router.get(
