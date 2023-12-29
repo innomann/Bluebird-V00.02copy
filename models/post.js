@@ -1,33 +1,39 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const goals = {
-  title: {
-    type: String,
-    required: true,
+const PostSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: false,
+    },
+    image: {
+      type: String,
+    },
+    imageId: {
+      type: String,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    author: {
+      type: String,
+      required: false,
+    },
+    email: {
+      type: String,
+      required: false,
+    },
+    fistname: {
+      type: String,
+      required: false,
+    },
+    lastname: {
+      type: String,
+      required: false,
+    },
   },
-  subtitle: {
-    type: String,
-    required: true,
-  },
-  body: {
-    type: String,
-    required: true,
-  },
-  image: {
-    data: Buffer,
-    contentType: String,
-  },
-  editor: {
-    type: String,
-    require: true,
-  },
+  { timestamps: true }
+);
 
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-};
-
-const GoalsSchema = new Schema(goals);
-module.exports = mongoose.model("Goals", GoalsSchema);
+module.exports = mongoose.model("Posts", PostSchema);

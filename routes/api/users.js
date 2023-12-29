@@ -74,4 +74,11 @@ router.post("/login", (req, res) => {
   });
 });
 
+
+router.get("/allUsers", (req, res) => {
+  User.find({})
+    .then((users) => res.status(200).json(users))
+    .catch((err) => res.status(400).json(console.log("Error fetching posts")));
+});
+
 module.exports = router;

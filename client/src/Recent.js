@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./Header.css";
+import Header from "./Header";
 import "./Resent.css";
 import { getPosts } from "./actions/postActions";
 import PropTypes from "prop-types";
@@ -13,6 +14,7 @@ const Recent = ({ getPosts, posts }) => {
 
   return (
     <div>
+      <Header/>
       <section
         class="section recent-post"
         id="recent"
@@ -226,7 +228,7 @@ const Recent = ({ getPosts, posts }) => {
                   <div class="recent-post-card">
                     <figure class="card-banner img-holder">
                       <img
-                        src={post.image.data.toString('base64')}
+                        src={post.image}
                         width="271"
                         height="258"
                         loading="lazy"
@@ -244,14 +246,14 @@ const Recent = ({ getPosts, posts }) => {
                           {post.title}
                         </a>
                       </h3>
-                      <p class="card-text">{post.subtitle}</p>
+                      <p class="card-text">{post.description}</p>
                       <div class="card-wrapper">
                         <div class="card-tag">
                           <a href="#" class="span hover-2">
                             # Travel
                           </a>
                           <a href="#" class="span hover-2">
-                            # Lifestyle
+                            # By {post.fistname} {post.lastname}
                           </a>
                         </div>
                         <div class="wrapper">
