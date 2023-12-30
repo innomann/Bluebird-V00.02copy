@@ -1,7 +1,13 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./Header.css";
 
 const Header = () => {
+  const user = localStorage.deLinkUser; 
+
+  const logoutUser =  () => {
+    localStorage.removeItem("deLinkUser");
+  };
+
 
   return (
     <div>
@@ -128,8 +134,8 @@ const Header = () => {
             </p>
           </nav>
 
-          <a href="#" class="btn btn-primary">
-            Subscribe
+          <a href="#" class="btn btn-primary" onClick={logoutUser}>
+            {user? "Signout":"Login"}
           </a>
 
           <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>

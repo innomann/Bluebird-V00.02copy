@@ -7,14 +7,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 const Recent = ({ getPosts, posts }) => {
-  console.log(posts)
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
   return (
     <div>
-      <Header/>
+      <Header />
       <section
         class="section recent-post"
         id="recent"
@@ -56,6 +55,21 @@ const Recent = ({ getPosts, posts }) => {
                       and the and bland moral misheard roadrunner flapped lynx
                       far that and jeepers giggled far and far
                     </p>
+
+                    <a
+                      href="/chatpage"
+                      class="navbar-link hover-1"
+                      data-nav-toggler
+                    >
+                      Chatpage Link
+                    </a>
+                    <a
+                      href="/login"
+                      class="navbar-link hover-1"
+                      data-nav-toggler
+                    >
+                      Login Link
+                    </a>
 
                     <div class="card-wrapper">
                       <div class="card-tag">
