@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const dbConnect = require("./db")
 const path = require("path");
-const cors = require("cors")
+var cors = require("cors");
 const User = require("./models/usermodel");
 
 const users = require("./routes/api/users");

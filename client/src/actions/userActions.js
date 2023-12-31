@@ -3,9 +3,7 @@ import { GET_ALLUSERS } from "./types";
 
 export const getAllusers = (dispatch) => {
   axios
-    .get(
-      `https://beta-v0-15-test-8ofx6duhx-innomann.vercel.app/api/users/allUsers`
-    )
+    .get(`https://beta-v0-15-test.vercel.app/api/users/allUsers`)
     .then((res) => {
       dispatch({
         type: GET_ALLUSERS,
