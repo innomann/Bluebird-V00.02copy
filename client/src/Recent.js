@@ -57,7 +57,7 @@ const Recent = ({ getPosts, posts }) => {
                     </p>
 
                     <a
-                      href="/chatpage"
+                      href="https://beta-v0-15-test.vercel.app/chatpage"
                       class="navbar-link hover-1"
                       data-nav-toggler
                     >
