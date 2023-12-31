@@ -19,7 +19,7 @@ const Chatusers = ({ users }) => {
         },
       };
       const { data } = await axios.post(
-        `http://localhost:5000/api/chats`,
+        `https://beta-v0-15-test.vercel.app/chats`,
         { userId },
         config
       );

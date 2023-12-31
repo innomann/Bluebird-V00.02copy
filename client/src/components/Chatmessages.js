@@ -12,7 +12,7 @@ import {
 
 // for socket.io
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://beta-v0-15-test.vercel.app";
 var socket, selectedChatCompare;
 
 const Chatmsgs = (xselectedChat) => {
