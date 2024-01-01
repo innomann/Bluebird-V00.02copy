@@ -17,7 +17,6 @@ const messageRoutes = require("./routes/api/messageRoutes")
 const app = express();
 
 app.use(cors());
-const SERVER_PORT = process.env.PORT || 5000;
 
 dbConnect()
 
@@ -37,6 +36,18 @@ app.use("/api/posts/", posts);
 app.use("/api/chats", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.get("/", posts)
+
+const __dirname$ = path.resolve();
+if (process.env.NODE_ENV == "production") {
+  console.log(process.env.NODE_ENV)
+} else {
+  // First route
+  app.get("/", (req, res) => {
+    res.status(200).json({
+      message: "Hello from DE-Link Chat App server",
+    });
+  });
+}
 
 
 
