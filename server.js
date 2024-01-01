@@ -38,8 +38,12 @@ app.use("/api/message", messageRoutes);
 app.get("/", posts)
 
 const __dirname$ = path.resolve();
-if (process.env.NODE_ENV == "production") {
-  console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === "production") {
+  console.log(process.env.NODE_ENV," Got hitted")
+  app.use(express.static(path.join(__dirname$, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname$, "client", "build", "index.html"));
+  });
 } else {
   // First route
   app.get("/", (req, res) => {
