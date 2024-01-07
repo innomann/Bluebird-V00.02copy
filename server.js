@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === "production") {
 // Main routes
 require("./middleware/passport")(passport);
 app.use("/api/users", users);
-app.use("https://beta-v0-15-test.vercel.app/api/posts/", posts);
+app.use("/api/posts/", posts);
 app.use("/api/chats", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.get("/", posts)
