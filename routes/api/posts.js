@@ -4,14 +4,17 @@ const Post = require("../../models/post");
 const passport = require("passport");
 const validatePostInput = require("../../validation/post");
 
-router.get("/", (req, res) => {
-  //res.render("pages/home")
-  Post.find({})
-    .then((post) => res.status(200).json(post))
-    .catch((err) => res.status(400).json(
-      console.log("Error fetching posts")
-    ));
-});
+router.get(
+  "https://beta-v0-15-test-gj6wl6xaf-innomann.vercel.app/api/posts/",
+  (req, res) => {
+    //res.render("pages/home")
+    Post.find({})
+      .then((post) => res.status(200).json(post))
+      .catch((err) =>
+        res.status(400).json(console.log("Error fetching posts"))
+      );
+  }
+);
 
 router.get(
   "/Idotknow",
