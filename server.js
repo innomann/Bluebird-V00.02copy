@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.use(passport.initialize());
 
-/*const __dirname$ = path.resolve();
+const __dirname$ = path.resolve();
 if (process.env.NODE_ENV === "production") {
   console.log(process.env.NODE_ENV, " Got hitted");
   app.use(express.static(path.join(__dirname$, "/client/build")));
@@ -43,7 +43,7 @@ if (process.env.NODE_ENV === "production") {
     });
     
   });
-}*/
+}
 
 // Main routes
 require("./middleware/passport")(passport);
