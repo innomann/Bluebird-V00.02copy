@@ -9,7 +9,7 @@ export const loginUser = async ({ email, password },dispatch,navigate) => {
       },
     };
     const { data } = await axios.post(
-      "https://beta-v0-15-test-auk10g4ck-innomann.vercel.app/api/users/login",
+      "http://localhost:5000/api/users/login",
       { email, password },
       config
     );

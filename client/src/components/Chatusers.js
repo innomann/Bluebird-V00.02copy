@@ -1,15 +1,39 @@
-import React, { useEffect } from "react";
-import { getAllusers } from "../actions/userActions";
+import React, { useState, useEffect,useRef } from "react";
+import {getAllusers } from "../actions/userActions";
+
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import axios from "axios";
 import { ACCESS_CHAT } from "../actions/types";
 
 const Chatusers = ({ users }) => {
+  const inputRef = useRef(null);
+  const [search, setSearch] = useState("");
+  const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [user, setUser] = useState();
 
-  const user = JSON.parse(localStorage.getItem("deLinkUser"));
-  
+  const xusers = users.filter((user) =>
+    user.email.toLowerCase().includes(search)
+  );
+
+
+
+  useEffect(() => {
+    getAllusers(dispatch);
+  }, [dispatch, getAllusers]);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("deLinkUser"));
+    setUser(userInfo);
+    if (!userInfo) {
+      window.location.href = "./";
+      alert("Not loged");
+    }
+  }, [navigate]);
+
   const accessChat = async (userId) => {
     try {
       const config = {
@@ -19,7 +43,7 @@ const Chatusers = ({ users }) => {
         },
       };
       const { data } = await axios.post(
-        `https://beta-v0-15-test.vercel.app/chats`,
+        `http://localhost:5000/api/chats`,
         { userId },
         config
       );
@@ -27,15 +51,14 @@ const Chatusers = ({ users }) => {
         type: ACCESS_CHAT,
         payload: data,
       });
-
-    }catch (err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
-    useEffect(() => {
-      getAllusers(dispatch);
-    }, [dispatch]);
+  const handleChange = (e) => {
+    setSearch(inputRef.current.value.toLowerCase());
+  };
 
   return (
     <section
@@ -64,6 +87,8 @@ const Chatusers = ({ users }) => {
           type="search"
           placeholder="search messages or user"
           className="search-input"
+          ref={inputRef}
+          onChange={handleChange}
           style={{
             width: "100%",
             marginTop: "0",
@@ -183,7 +208,7 @@ const Chatusers = ({ users }) => {
           </div>
         </div>
 
-        {users.map((user) => (
+        {xusers.map((user) => (
           <div
             className="chat"
             id="Ollie Chandler"

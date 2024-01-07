@@ -1,6 +1,6 @@
 import React from "react";
 
-const ChatInput = ({sendFunction, handleFunction }) => {
+const ChatInput = ({value,sendFunction, handleFunction }) => {
   return (
     <div
       className="chat-input-box"
@@ -22,6 +22,7 @@ const ChatInput = ({sendFunction, handleFunction }) => {
         type="text"
         className="text-input"
         placeholder="Type your message..."
+        value={value}
         onChange={handleFunction}
         style={{
           color: "whitesmoke",

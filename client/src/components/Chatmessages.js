@@ -12,7 +12,7 @@ import {
 
 // for socket.io
 import io from "socket.io-client";
-const ENDPOINT = "https://beta-v0-15-test.vercel.app";
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 const Chatmsgs = (xselectedChat) => {
@@ -22,7 +22,6 @@ const Chatmsgs = (xselectedChat) => {
 
   const selectedChat = xselectedChat.xselectedChat.SelectedChat._id;
 
-  console.log("Messages in Chatmsgs", messages);
 
   const sendMessage = async (e) => {
     const audio = new Audio(
@@ -51,6 +50,8 @@ const Chatmsgs = (xselectedChat) => {
         socket.emit("new message", data);
         setMessages([...messages, data]);
         audio.play();
+        setNewMessage("")
+
       } catch (err) {
         console.log(err);
         return;
@@ -64,7 +65,6 @@ const Chatmsgs = (xselectedChat) => {
   };
 
   const fetchAllMessages = async () => {
-    console.log("fetchAllMessages  got hitted with", selectedChat);
     if (!selectedChat) return;
     try {
       const config = {
@@ -77,7 +77,6 @@ const Chatmsgs = (xselectedChat) => {
         config
       );
       setMessages(data);
-      console.log("messages", data);
       socket.emit("join chat", selectedChat);
     } catch (err) {
       console.log(err);
@@ -142,7 +141,6 @@ const Chatmsgs = (xselectedChat) => {
           {messages &&
             messages.map(
               (message, index) => (
-                console.log("Single sms", message.sender._id),
                 (
                   <div style={{ display: "flex" }} key={message._id}>
                     {isSameSender(messages, message, index, user.user._id) ||
@@ -184,7 +182,7 @@ const Chatmsgs = (xselectedChat) => {
             )}
         </div>
 
-        <ChatInput handleFunction={typingHandler} sendFunction={sendMessage} />
+        <ChatInput value={newMessage} handleFunction={typingHandler} sendFunction={sendMessage} />
       </div>
     </section>
   );
