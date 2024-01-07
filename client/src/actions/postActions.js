@@ -5,7 +5,7 @@ import {
 
 export const getPosts = () => (dispatch) => {
   axios
-    .get(`https://beta-v0-15-test.vercel.app/api/posts/`)
+    .get(`https://beta-v0-15-test-gj6wl6xaf-innomann.vercel.app/api/posts/`)
     .then((res) => {
       dispatch({
         type: GET_POSTS,
