@@ -5,7 +5,7 @@ const passport = require("passport");
 const validatePostInput = require("../../validation/post");
 
 router.get(
-  "https://beta-v0-15-test-gj6wl6xaf-innomann.vercel.app/api/posts/",
+  "https://beta-v0-15-test-mvvinomwf-innomann.vercel.app/",
   (req, res) => {
     //res.render("pages/home")
     Post.find({})
