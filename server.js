@@ -19,12 +19,15 @@ const app = express();
 app.use(cors());
 
 dbConnect()
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+
+
+
 // set the view engine to ejs
-app.set("view engine", "ejs");
+/*app.set("view engine", "ejs");
 app.use(passport.initialize());
 
 const __dirname$ = path.resolve();
@@ -43,12 +46,12 @@ if (process.env.NODE_ENV === "production") {
     });
     
   });
-}
+}*/
 
 // Main routes
 require("./middleware/passport")(passport);
 app.use("/api/users", users);
-app.use("https://beta-v0-15-test-mvvinomwf-innomann.vercel.app/", posts); 
+app.use("/api/posts/", posts); 
 app.use("/api/chats", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.get("/", posts)

@@ -1,43 +1,86 @@
-
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const SALT_ROUNDS = 10;
 
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is a required field"],
+      required: false,
+      max: 50,
+      unique: false,
+    },
+    firstname: {
+      type: String,
+      required: false,
+      max: 50,
+      unique: false,
+    },
+    lastname: {
+      type: String,
+      required: false,
+      max: 50,
+      unique: false,
     },
     email: {
       type: String,
       required: true,
+      max: 50,
       unique: true,
     },
     password: {
       type: String,
       required: true,
+      min: 6,
+    },
+    profilePicture: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dfcaehp0b/image/upload/v1650481698/vd6bg6se3kbqutrd4cn1.png",
     },
     image: {
       type: String,
       default:
         "https://res.cloudinary.com/dfcaehp0b/image/upload/v1650481698/vd6bg6se3kbqutrd4cn1.png",
     },
-  },
-  {
-    timestamps: true,
-  }
-);
-userSchema.methods.matchPassword = async function (givenPass) {
-  return await bcrypt.compare(givenPass, this.password);
-};
-userSchema.pre("save", async function hashPassword(next) {
-  if (!this.isModified) {
-    next();
-  }
-  //   ? hash the password
-  this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
-});
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+    coverPicture: {
+      type: String,
+      default: "",
+    },
+    followers: {
+      type: Array,
+      default: [],
+    },
+    followings: {
+      type: Array,
+      default: [],
+    },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    desc: {
+      type: String,
+      max: 50,
+    },
+    city: {
+      type: String,
+      max: 50,
+    },
+    from: {
+      type: String,
+      max: 50,
+    },
+    relationship: {
+      type: Number,
+      enum: [1, 2, 3],
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("User", UserSchema);
+

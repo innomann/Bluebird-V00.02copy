@@ -3,12 +3,21 @@ const router = express.Router();
 const Post = require("../../models/post");
 const passport = require("passport");
 const validatePostInput = require("../../validation/post");
+const { createPost } = require("../../controllers/postControllers");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+
+// Import multer like the other dependencies
+const multer  = require('multer')
+// Set multer file storage folder
+const upload = multer({ dest: 'uploads/' })
 
 router.get(
-  "https://beta-v0-15-test-mvvinomwf-innomann.vercel.app/",
+  "/",
   (req, res) => {
     //res.render("pages/home")
     Post.find({})
+      .sort({ createdAt: -1 })
       .then((post) => res.status(200).json(post))
       .catch((err) =>
         res.status(400).json(console.log("Error fetching posts"))
@@ -43,6 +52,14 @@ router.get("/author/:author", (req, res) => {
         .json({ author: "Error fetching posts of specific author" })
     );
 });
+// Route to make a post
+router.post("/postimage", upload.single("file"), createPost);
+router.post("/postimageX", upload.single("file"), (req, res) => {
+  console.log(req.body);
+  console.log(req.file);
+});
+
+
 
 router.post(
   "/create",
