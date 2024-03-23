@@ -15,6 +15,7 @@ import setAuthToken from "./utils/setAuthToken";
 import { jwtDecode } from "jwt-decode";
 import { logoutUser, setCurrentUser } from "./Redux/actions/authActions";
 import { useNavigate } from "react-router-dom";
+import Chathome from "./Components/Chat/Chathome";
 
 
 function App() {
@@ -32,16 +33,7 @@ if (localStorage.jwtToken) {
   store.dispatch(logoutUser());
   window.location.href = "./login";
  }
-}else{
-  window.location.href = "./login";
 }
-
-  
- 
-
-
-
-
 
   return (
     <Provider store={store}>
@@ -53,16 +45,13 @@ if (localStorage.jwtToken) {
             <Route
               path="/"
               element={
-                isLoggedIn ? (
-                  <Navigate to="/home" />
-                ) : (
-                  <Navigate to="/login" />
-                )
+                isLoggedIn ? <Navigate to="/home" /> : <Navigate to="/login" />
               }
             />
             <Route path="/" element={<Home />}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/messaging" element={<Chathome />} />
           </Routes>
         </div>
       </Router>

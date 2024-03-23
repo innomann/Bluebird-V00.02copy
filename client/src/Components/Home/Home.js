@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import LeftSide from "../LeftSide/LeftSide";
 import Main from "../Main/Main";
 import { WriteNewPostCard } from "../Post/WriteNewPostCard";
+import { useNavigate } from "react-router-dom";
 
-const Home = (props) => {
+const Home = (user) => {
+  const navigate = useNavigate();
   return (
     <Container>
-      {/*{!props.user && <Redirect to="/" />}*/}
+    {/*{user && navigate("./login")}*/}
       <Content>
         <Section>
           <h5>

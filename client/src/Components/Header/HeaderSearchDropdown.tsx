@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { cn } from "../../utils/cn";
 import { Input } from "../primitives/Input";
 import { Popover, PopoverContent, PopoverTrigger } from "../primitives/Popover";
+import DropdownAvatar from "../primitives/DropdownAvatar";
 
 const SearchSuggestion: React.FC<{ text: string }> = ({ text }) => {
   return (
@@ -47,8 +48,13 @@ export const HeaderSearchDropdown = () => {
         />
       </PopoverTrigger>
       <PopoverContent className="p-0 w-96">
-        <div className="font-semibold text-sm p-4 pb-2">Try searching for</div>
-        <SearchSuggestion text="#hiring" />
+        <div className="font-semibold text-sm p-4 pb-2">
+          Try searching for 
+        </div>
+        <div className="flex flex-row items-center  ">
+          <SearchSuggestion text="#hiring" />
+          <DropdownAvatar />
+        </div>
         <SearchSuggestion text="#jobadvice" />
         <SearchSuggestion text="#jobs" />
         <SearchSuggestion text="#career" />
