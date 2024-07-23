@@ -12,7 +12,7 @@ const Home = (user) => {
   return (
     <Container>
     {/*{user && navigate("./login")}*/}
-      <Content>
+      <Content >
         <Section>
           <h5>
             <a href="/">Hiring in a hurry?-</a>

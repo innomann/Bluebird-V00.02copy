@@ -30,7 +30,6 @@ cloudinary.config({
   api_secret: "k1N_go8Y5DWfANPAaMK-0cq0PEg",
 });
 
-
 const createPost = ((req, res) => {
   cloudinary.v2.uploader.upload(req.file.path, function (err, result) {
     if (err) {
@@ -41,6 +40,8 @@ const createPost = ((req, res) => {
     req.body.imageId = result.public_id;
 
     const newPost = new Post(req.body);
+    
+    console.log(newPost)
     newPost
       .save()
       .then((doc) => res.json(doc))

@@ -1,10 +1,12 @@
 import axios from "axios";
-import { SET_CURRENT_USER } from "./actionType";
+import { SET_CURRENT_USER,SET_ERRORS, TOGGLE_USER_LOADING } from "./actionType";
 import { setErrors, clearErrors } from "./errorActions";
 import { jwtDecode } from "jwt-decode";
 import setAuthToken from "../../utils/setAuthToken";
 
 export const loginUser =  (userData,dispatch) => {
+  dispatch(clearErrors)
+  dispatch(toggleUserLoading());
 
   axios
     .post("http://localhost:5000/api/users/login", userData)
@@ -18,9 +20,14 @@ export const loginUser =  (userData,dispatch) => {
       
     })
     .catch((err) => {
-      console.log(err.response.data);
       dispatch(setErrors(err.response.data));
     });
+};
+
+export const toggleUserLoading = () => {
+  return {
+    type: TOGGLE_USER_LOADING,
+  };
 };
 
 export const setCurrentUser = (userData) => {

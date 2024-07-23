@@ -1,6 +1,7 @@
 import { FeedItem } from "../Feeds/FeedItem";
 import { connect } from "react-redux";
 
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,6 +9,7 @@ import {
   DropdownMenuItem,
 } from "../primitives/DropdownMenu";
 import { Separator } from "../primitives/Separator";
+import { ClassNames } from "@emotion/react";
 
 const SortByDivider = () => {
   return (
@@ -38,9 +40,8 @@ const SortByDivider = () => {
 
  const Articles = (posts:any) => {
   const articles = posts.posts
-  console.log(articles)
   return (
-    <div style={{ gridArea: "main" }}>
+    <div style={{ gridArea: "main" } }>
       {/*<WriteNewPostCard />*/}
       <SortByDivider />
 
@@ -55,7 +56,8 @@ const SortByDivider = () => {
           href: "https://blogs.microsoft.com/blog/2023/06/21/accelerating-scientific-discovery-with-azure-quantum/",
         }}
         author={{
-          name: "Steven Bigman",
+          name: "Steven",
+          lastname:"Bigman",
           subtext: "Chairman and CEO at Wren",
           imageUrl:
             "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -66,7 +68,10 @@ const SortByDivider = () => {
           comments: 139,
           reposts: 593,
         }}
+       
       />
+      
+     
 
       
       {articles.length === 0 ? (
@@ -84,7 +89,8 @@ const SortByDivider = () => {
                 href: "https://blogs.microsoft.com/blog/2023/06/21/accelerating-scientific-discovery-with-azure-quantum/",
               }}
               author={{
-                name: article.fistname,
+                name: article.firstname,
+                lastname: article.lastname,
                 subtext: "Chairman and CEO at Wren",
                 imageUrl:
                   "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -111,6 +117,7 @@ const SortByDivider = () => {
         }}
         author={{
           name: "Steven Bigman",
+          lastname:"big",
           subtext: "Chairman and CEO at Wren",
           imageUrl:
             "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=2960&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -134,6 +141,7 @@ const SortByDivider = () => {
         }}
         author={{
           name: "Satya Nadella",
+          lastname:"node",
           subtext: "Chairman and CEO at Microsoft",
           imageUrl:
             "https://plus.unsplash.com/premium_photo-1669882305273-674eff6567af?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -151,6 +159,7 @@ const SortByDivider = () => {
         thumbnail="https://media.licdn.com/dms/image/D4D22AQFLRo-p2OjMKQ/feedshare-shrink_800/0/1686611197634?e=1690416000&v=beta&t=A2bGER0kZYs6vX37v8sALclnrESFkCcqO9Y4vv3cr4s"
         author={{
           name: "Clara Shih",
+          lastname:"shh",
           subtext: "CEO of Salesforce AI, Board Director & Entrepreneur",
           imageUrl:
             "https://media.licdn.com/dms/image/D5603AQGVuircu90KUw/profile-displayphoto-shrink_100_100/0/1677475762784?e=1692835200&v=beta&t=zTH1P27U-lV_I_2hT74hDcqk-fhgg7wHrhx8W8a5xio",
@@ -174,6 +183,7 @@ const SortByDivider = () => {
         }}
         author={{
           name: "Sundar Pichai",
+          lastname:"Pichsi",
           subtext: "CEO at Google",
           imageUrl:
             "https://pbs.twimg.com/profile_images/864282616597405701/M-FEJMZ0_400x400.jpg",
@@ -196,6 +206,7 @@ const SortByDivider = () => {
         }}
         author={{
           name: "Mark Zuckerberg",
+          lastname:"lastname",
           subtext: "CEO at Facebook",
           imageUrl:
             "https://www.californiamuseum.org/sites/main/files/imagecache/medium/main-images/screen_shot_2012-07-27_at_6.32.28_pm.png?1632975955",
@@ -213,6 +224,7 @@ const SortByDivider = () => {
         thumbnail="https://media.licdn.com/dms/image/sync/D4E27AQHqMUKIczW0Tg/articleshare-shrink_800/0/1687502422250?e=1688234400&v=beta&t=_Y664YQRh3cSwDds-TYv8P4otlJ-KTWA2nSysvwOStw"
         author={{
           name: "Elon Musk",
+          lastname:"rr",
           subtext: "CEO of SpaceX and Tesla, Entrepreneur",
           imageUrl: "https://ichef.bbci.co.uk/images/ic/640x360/p03c84wz.jpg",
           connectionDegree: "2nd",

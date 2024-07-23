@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,8 +13,10 @@ import Login from "./Components/Auth/Login";
 import setAuthToken from "./utils/setAuthToken";
 import { jwtDecode } from "jwt-decode";
 import { logoutUser, setCurrentUser } from "./Redux/actions/authActions";
-import { useNavigate } from "react-router-dom";
-import Chathome from "./Components/Chat/Chathome";
+import ProfileHome from "./Components/Profile/ProfileHome";
+import Quiz from "./Components/Main/Quiz";
+import Quizpost from "./Components/Main/Quizpost";
+import Gallery from "./Components/Profile/Gallery";
 
 
 function App() {
@@ -25,7 +26,6 @@ if (localStorage.jwtToken) {
   const token = localStorage.jwtToken;
   setAuthToken(token);
   const decoded = jwtDecode(token);
-  console.log(decoded.exp)
   store.dispatch(setCurrentUser(decoded));
   const currentTime = Date.now() / 1000;
  if (decoded?.exp && decoded.exp < currentTime) {
@@ -49,9 +49,13 @@ if (localStorage.jwtToken) {
               }
             />
             <Route path="/" element={<Home />}></Route>
+            <Route path="/quiz" element={<Quiz/>}></Route>
+            <Route path="/quizpost" element={<Quizpost/>}></Route>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/messaging" element={<Chathome />} />
+            <Route path="/messaging" element={<ProfileHome />} />
+            <Route path="/gallery" element={<Gallery />} />
+            
           </Routes>
         </div>
       </Router>

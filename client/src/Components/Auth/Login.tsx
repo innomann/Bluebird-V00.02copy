@@ -2,38 +2,60 @@ import React, { useState,useEffect, useCallback, FormEvent } from "react";
 import { Link, redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { BsEmojiLaughing, BsEmojiExpressionless } from "react-icons/bs";
-
+import { gapi } from "gapi-script";
+import { googleAuth } from "../../apis/auth";
+import { validUser } from "../../apis/auth";
 import { GoogleLogin } from "react-google-login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../Redux/actions/authActions";
 import { connect } from "react-redux";
 
-function Login( errors:any ) {
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
+
+
+
+
+function Login(errors: any,userLoading: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const dispatch = useDispatch();
- 
+
+  console.log("Userloading", userLoading);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const responseGoogle = () => {
-    console.log("responseGoogle clicked!");
+  const responseGoogle = async (res: any) => {
+    return toast.error("I'm sorry, can't login with Google");
+    if (res?.profileObj) {
+      console.log(res.profileObj);
+      setIsLoading(true);
+      const response: any = await googleAuth({ tokenId: res.tokenId });
+      setIsLoading(false);
+      console.log("response :" + res);
+      if (response.data.token) {
+        localStorage.setItem("jwtToken", response.data.token);
+        window.location.href = "/chats";
+      }
+    }
+    console.log("responseGoogle clicked!", res);
   };
 
-  const googleFailure = () => {
-    console.log("Something went Wrong.Try Again!");
+  const googleFailure = (error: any) => {
+    return toast.error("Something went wrong");
   };
 
   const handleOnChange = useCallback<
     React.ChangeEventHandler<HTMLInputElement>
-    >(
+  >(
     (event) => {
       event.preventDefault();
       setFormData({ ...formData, [event.target.name]: event.target.value });
-      console.log(formData);
     },
     [formData]
   );
@@ -45,11 +67,29 @@ function Login( errors:any ) {
     return redirect("/home");
   };
 
-    useEffect(() => {
-      if (errors.errors.email || errors.errors.password) {
-        toast.error(errors.errors.email || errors.errors.password);
+  useEffect(() => {
+    if (errors.errors.email || errors.errors.password) {
+      toast.error(errors.errors.email || errors.errors.password);
+      setIsLoading(false)
+    }
+  }, [errors]);
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: process.env.REACT_APP_CLIENT_ID,
+        scope: "",
+      });
+    };
+    gapi.load("client:auth2", initClient);
+    const isValid = async () => {
+      const data = await validUser();
+      if (data?.user) {
+        window.location.href = "/chats";
       }
-    }, [errors]);
+    };
+    isValid();
+  }, []);
 
   return (
     <>
@@ -124,16 +164,13 @@ function Login( errors:any ) {
               <div
                 style={{ display: isLoading ? "" : "none" }}
                 className="absolute -top-[53px] left-[27%] sm:-top-[53px] sm:left-[56px]"
+              ></div>
+              <Box
+                sx={{ display: "flex" }}
+                style={{ display: isLoading ? "block" : "none" }}
               >
-                {/*<lottie-player
-                    src="https://assets2.lottiefiles.com/packages/lf20_h9kds1my.json"
-                    background="transparent"
-                    speed="1"
-                    style={{ width: "200px", height: "160px" }}
-                    loop
-                    autoplay
-                  ></lottie-player>*/}
-              </div>
+                {isLoading ? <CircularProgress /> : ""}
+              </Box>
               <p
                 style={{ display: isLoading ? "none" : "block" }}
                 className="test-[#fff]"
@@ -144,18 +181,18 @@ function Login( errors:any ) {
             {/* <div className='border-t-[1px] w-[100%] sm:w-[80%] my-3' ></div> */}
             <p className="text-[#fff] text-center sm:-ml-20">/</p>
             <GoogleLogin
-              clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+              clientId="552071300461-8eekmvko625j8l1k6g44t3e114pnlnov.apps.googleusercontent.com"
               render={(renderProps) => (
                 <button
                   style={{
                     borderImage:
-                      "linear-gradient(to right, rgba(0,195,154,1) 50%, rgba(224,205,115,1) 80%)",
+                      "linear-gradient(to right, rgba(0,195,154,1) 50%, rgba(224,205,115,1) 80%) ",
                     borderImageSlice: "1",
                   }}
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                   aria-label="Continue with google"
-                  className="focus:ring-2 focus:ring-offset-1  py-3.5 px-4 border rounded-lg  flex items-center w-[100%]  sm:w-[80%]"
+                  className=" focus:ring-2 focus:ring-offset-1  py-3.5 px-4 border rounded-lg  flex items-center w-[100%]  sm:w-[80%]  "
                   //disableElevation={true}
                   //disablefocusRipple={true}
                 >
@@ -163,7 +200,7 @@ function Login( errors:any ) {
                     src="https://tuk-cdn.s3.amazonaws.com/can-uploader/sign_in-svg2.svg"
                     alt="google"
                   />
-                  <p className="text-[base] font-medium ml-4 text-[#fff]">
+                  <p className="text-[base] font-medium ml-4 text-[#fff] cursor-not-allowed ">
                     Continue with Google
                   </p>
                 </button>
@@ -184,6 +221,7 @@ function Login( errors:any ) {
 
 const mapStateToProps = (state: any) => ({
   errors: state.errorState,
+  userLoading: state.userState
 });
 
 export default connect(mapStateToProps, { loginUser })(Login);

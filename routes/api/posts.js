@@ -54,6 +54,7 @@ router.get("/author/:author", (req, res) => {
 });
 // Route to make a post
 router.post("/postimage", upload.single("file"), createPost);
+
 router.post("/postimageX", upload.single("file"), (req, res) => {
   console.log(req.body);
   console.log(req.file);

@@ -19,6 +19,7 @@ type FeedItemProps = {
   };
   author: {
     name: string;
+    lastname: string;
     subtext: string;
     imageUrl: string;
     connectionDegree: string;
@@ -42,7 +43,7 @@ const LikesCountRow: React.FC<{ stats: FeedItemProps["stats"] }> = ({
     return null;
   }
   return (
-    <div className="text-zinc-500 text-xs p-2 px-4 flex flex-row items-center border-b">
+    <div className="text-zinc-500 text-xs p-2 px-4 flex flex-row items-center border-b ">
       {stats.likes && (
         <div className="w-full flex flex-row items-center hover:text-blue-600 hover:underline cursor-pointer">
           <LightbulbIcon size={15} />
@@ -93,12 +94,14 @@ export const FeedItem: React.FC<FeedItemProps> = ({
   stats,
 }) => {
   return (
-    <Card className="p-0 mt-2">
+    <Card className="p-0 mt-2 ">
       <div className="flex flex-row p-4">
         <UserAvatar imageUrl={author.imageUrl} />
         <div className="pl-4">
           <div className="flex flex-row items-center">
-            <div className="font-semibold">{author.name}</div>
+            <div className="font-semibold">
+              {author.name} {author.lastname}
+            </div>
             <div className="ml-2 text-muted-foreground text-sm">
               • {author.connectionDegree}
             </div>
@@ -106,7 +109,7 @@ export const FeedItem: React.FC<FeedItemProps> = ({
           <div className="text-xs text-zinc-500">{author.subtext}</div>
         </div>
       </div>
-      <div className="p-4 text-sm pt-0">{content}</div>
+      <div className="p-4 text-sm pt-0 ">{content}</div>
       {thumbnail && <img src={thumbnail} className="w-full h-auto" />}
       {link && (
         <>

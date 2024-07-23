@@ -10,7 +10,6 @@ export const getPosts = (dispatch) => {
           type: GET_ARTICLES,
           payload: res.data,
         });
-        console.log(res.data);
     })
     .catch((err) => {
       console.log(err);

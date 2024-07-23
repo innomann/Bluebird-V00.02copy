@@ -5,6 +5,7 @@ import { Input } from "../primitives/Input";
 import { Popover, PopoverContent, PopoverTrigger } from "../primitives/Popover";
 import DropdownAvatar from "../primitives/DropdownAvatar";
 
+
 const SearchSuggestion: React.FC<{ text: string }> = ({ text }) => {
   return (
     <div className="flex flex-row px-4 py-2 items-center hover:bg-zinc-100 cursor-pointer">

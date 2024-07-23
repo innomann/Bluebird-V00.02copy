@@ -9,10 +9,10 @@ import  Articles  from "./Articles";
 import { getPosts } from "../../Redux/actions/postActions";
 import { useDispatch } from "react-redux";
 
+
 const Main = (props) => {
   const [isWriteDialogOpen, setWriteDialogOpen] = useState(false);
 
-  console.log(props.user)
   const dispatch = useDispatch();
   // set modal here to show only when click on button
   //here default state is alwayse close

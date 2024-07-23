@@ -4,8 +4,10 @@ import { signOutAPI } from "../../Redux/actions";
 import { HeaderSearchDropdown } from "./HeaderSearchDropdown";
 import { IoMdHome } from "react-icons/io";
 import { setCurrentUser } from "../../Redux/actions/authActions";
+import { useLocation } from "react-router-dom";
 
 const Header = (props) => {
+  const { pathname } = useLocation();
    const signOut = (dispatch) => {
      localStorage.removeItem("jwtToken");
      //dispatch(setCurrentUser({}));
@@ -48,7 +50,7 @@ const Header = (props) => {
         <HeaderSearchDropdown />
         <Nav>
           <NavListWrap>
-            <NavList className="active">
+            <NavList className={pathname === "/home" ? "active" : ""}>
               <a href="/home">
                 <img
                   src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-home.svg"
@@ -57,13 +59,13 @@ const Header = (props) => {
                 <span>Home</span>
               </a>
             </NavList>
-            <NavList>
-              <a href="/network">
+            <NavList className={pathname === "/gallery" ? "active" : ""}>
+              <a href="/gallery">
                 <img
                   src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-network.svg"
                   alt="nav-network-icon"
                 />
-                <span>My Network</span>
+                <span>Gallery</span>
               </a>
             </NavList>
             <NavList>
@@ -75,7 +77,16 @@ const Header = (props) => {
                 <span>Jobs</span>
               </a>
             </NavList>
-            <NavList>
+            <NavList className={pathname === "/quiz" ? "active" : ""}>
+              <a href="/quiz">
+                <img
+                  src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-jobs.svg"
+                  alt="nav-jobs-icon"
+                />
+                <span>Ouiz</span>
+              </a>
+            </NavList>
+            <NavList className={pathname === "/messaging" ? "active" : ""}>
               <a href="/messaging">
                 <img
                   src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-messaging.svg"
@@ -84,7 +95,7 @@ const Header = (props) => {
                 <span>Messaging</span>
               </a>
             </NavList>
-            <NavList>
+            <NavList className={pathname === "/notification" ? "active" : ""}>
               <a href="/notifications">
                 <img
                   src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-notifications.svg"
@@ -95,7 +106,7 @@ const Header = (props) => {
             </NavList>
 
             <User>
-              <a href="hh">
+              <a href="/gallery">
                 {/* user login photo come from google authentication */}
                 {props.user && props.user.photoURL ? (
                   <img src={props.user.photoURL} alt={props.user.displayName} />
@@ -118,7 +129,7 @@ const Header = (props) => {
                 <a href="/">SignOut</a>
               </SignOut>
             </User>
-            <Work>
+            <Work className={pathname === "/work" ? "active" : ""}>
               <a href="/work">
                 <img
                   src="https://raw.githubusercontent.com/adarshtiwari1998/linkedin-web-app/e518c8fc18f5a2cf58562f134ff3da394d02c17b/public/images/nav-work.svg"

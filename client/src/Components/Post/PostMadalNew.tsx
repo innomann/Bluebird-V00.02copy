@@ -28,11 +28,12 @@ const WriteNewPostDialog = (userState: any, props: any) => {
 
   const [currentImage, setCurrentImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState<string>("");
+  console.log(user)
   const [post, setPost] = useState({
     description: text,
     image: currentImage,
-    fistname: user.firstname,
-    lastname: user.lastname,
+    firstname: user.firstname,
+    lastname:  user.lastname,
     email: user.email,
   });
 
@@ -42,6 +43,7 @@ const WriteNewPostDialog = (userState: any, props: any) => {
     setCurrentImage(event.target.files?.[0]);
     setPreviewImage(URL.createObjectURL(selectedFiles?.[0]));
     setPost({ ...post, [event.target.name]: selectedFiles?.[0] });
+    setText(event.target.value);
   };
 
   const handleChange = (event: any) => {
@@ -60,6 +62,7 @@ const WriteNewPostDialog = (userState: any, props: any) => {
     if (!currentImage) return;
     formData.append("file", currentImage);
     console.log("Post", post, currentImage);
+
 
   axios
     .post("http://localhost:5000/api/posts/postimage", formData, {
@@ -129,7 +132,15 @@ const WriteNewPostDialog = (userState: any, props: any) => {
             <form onSubmit={subMit} encType="multipart/form-data">
               <div className="flex flex-row p-4 pt-0">
                 <div className="w-full" />
-                <Button type="submit">Post</Button>
+                <Button
+                  className={cn(
+                    "rounded-3xl font-semibold",
+                    !isPostButtonDisabled && "bg-blue-600"
+                  )}
+                  disabled={isPostButtonDisabled}
+                  >
+                  Post
+                </Button>
               </div>
             </form>
           </DialogContent>

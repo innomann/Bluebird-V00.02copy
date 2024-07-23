@@ -14,7 +14,7 @@ const PostSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     author: {
       type: String,
@@ -24,7 +24,7 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    fistname: {
+    firstname: {
       type: String,
       required: false,
     },

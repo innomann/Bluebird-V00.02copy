@@ -3,20 +3,19 @@ import { connect } from "react-redux";
 
 const LeftSide = (userState) => {
   const user = userState.userState.user;
-  console.log(user);
   return (
     <Container>
       <ArtCard>
         <UserInfo>
           <CardBackground />
-          <a href="/">
+          <a href="/messaging">
             <Photo />
             {/* if the user exist so show there name otherwise show there with help of ternary operator */}
             <Link>
               Welcome, {user ? user.firstname || user.lastname : "there"}
             </Link>
           </a>
-          <a>
+          <a href="/messaging">
             <AddPhotoText>Add a Photo</AddPhotoText>
           </a>
         </UserInfo>
@@ -124,6 +123,9 @@ const Link = styled.div`
   color: rgba(0, 0, 0, 0.9);
   line-height: 1.5;
   font-weight: 700;
+  &:hover {
+    border-bottom: 1px solid black;
+  }
 `;
 
 // AddPhotoText style

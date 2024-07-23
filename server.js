@@ -14,6 +14,7 @@ const users = require("./routes/api/users");
 const posts = require("./routes/api/posts");
 const chatRoutes = require("./routes/api/chatRoutes")
 const messageRoutes = require("./routes/api/messageRoutes")
+const quizRoute = require("./routes/api/quiz")
 const app = express();
 
 app.use(cors());
@@ -54,6 +55,8 @@ app.use("/api/users", users);
 app.use("/api/posts/", posts); 
 app.use("/api/chats", chatRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/quiz", quizRoute);
+app.use("/api/getquiz", quizRoute);
 app.get("/", posts)
 
 
