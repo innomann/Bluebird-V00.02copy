@@ -62,7 +62,7 @@ app.get("/", posts);
 // SERVERLESS / ENVIRONMENT CONFIGURATION
 // ==========================================
 
-// If running locally, spin up a traditional listening server + sockets
+// If running locally, spin up a traditional listening server
 if (process.env.NODE_ENV !== "production") {
   const PORT = process.env.SERVER_PORT || 5000;
   const server = app.listen(PORT, () => {
@@ -73,32 +73,7 @@ if (process.env.NODE_ENV !== "production") {
     );
     console.log(`Visit ` + colors.underline.blue(`http://localhost:${PORT}`));
   });
-
-  // Local Sockets Setup
-  const io = require("socket.io")(server, {
-    pingTimeout: 60000,
-    cors: { origin: "*" },
-  });
-
-  io.on("connection", (socket) => {
-    console.log("Sockets are in action locally");
-    socket.on("setup", (userData) => {
-      socket.join(userData._id);
-      socket.emit("connected");
-    });
-    socket.on("join chat", (room) => {
-      socket.join(room);
-    });
-    socket.on("new message", (newMessage) => {
-      var chat = newMessage.chatId;
-      if (!chat.users) return;
-      chat.users.forEach((user) => {
-        if (user._id === newMessage.sender._id) return;
-        socket.in(user._id).emit("message received", newMessage);
-      });
-    });
-  });
 }
 
-// CRUCIAL FOR VERCEL: Export the Express App instance
+// CRUCIAL FOR VERCEL: Export the Express App
 module.exports = app;

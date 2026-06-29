@@ -15,6 +15,7 @@ const loginUser = asyncHandler(async (req, res) => {
         console.log(errors)
         return res.status(400).json(errors);
       }
+      console.log(req.body)
       const { email, password } = req.body;
       User.findOne({ email }).then((user) => {
         if (!user) {
