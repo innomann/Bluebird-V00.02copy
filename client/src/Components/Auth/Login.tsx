@@ -64,6 +64,7 @@ function Login(errors: any,userLoading: any) {
     event.preventDefault();
     setIsLoading(true);
     loginUser(formData, dispatch);
+    console.log(formData, "FormData")
     return redirect("/home");
   };
 
